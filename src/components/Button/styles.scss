@@ -1,0 +1,16 @@
+.Button {
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: 0;
+    background: #000000;
+    color: #ffffff;
+    cursor: pointer;
+    font-family: Inter;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.Button--secondary {
+    padding: 1rem;
+    width: 100%;
+}

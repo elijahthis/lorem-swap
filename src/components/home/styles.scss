@@ -1,0 +1,28 @@
+.Hero {
+    height: 100%;
+    min-height: 100vh;
+    padding: 4rem;
+    padding-bottom: 6rem;
+    display: flex;
+
+    h1 {
+        margin-bottom: 1.2rem;
+    }
+    p {
+        font-weight: 300;
+        max-width: 780px;
+        font-size: 24px;
+    }
+
+    .main-text {
+        margin-top: auto;
+    }
+}
+
+.Steps {
+    padding: 1.5rem 4rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
