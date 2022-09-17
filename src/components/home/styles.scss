@@ -1,9 +1,19 @@
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 .Hero {
 	height: 100%;
 	min-height: 100vh;
 	padding: 4rem;
 	padding-bottom: 6rem;
 	display: flex;
+	justify-content: space-between;
 
 	h1 {
 		margin-bottom: 1.2rem;
@@ -18,10 +28,54 @@
 		margin-top: auto;
 		margin-bottom: 4rem;
 	}
+	.side-show {
+		margin-top: auto;
+		margin-bottom: auto;
+
+		width: 320px;
+		height: 320px;
+		display: grid;
+		place-items: center;
+		position: relative;
+
+		.txt {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			gap: 2rem;
+			z-index: 1;
+			p {
+				font-weight: 600;
+			}
+
+			svg {
+				width: 30px;
+				height: 30px;
+
+				fill: #016eda;
+				// radial-gradient(circle at left top, #016eda, #d900c0);
+			}
+		}
+
+		.robo-robo {
+			border: 8px double transparent;
+			background-image: linear-gradient(#383a4d, #383a4d),
+				radial-gradient(circle at left top, rgb(1, 110, 218), rgb(217, 0, 192));
+			background-origin: border-box;
+			background-clip: padding-box, border-box;
+			transition: all 0.5s;
+
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+			animation: spin 2s ease-in-out 0s infinite forwards;
+		}
+	}
 }
 
 .Steps {
-	padding: 1.5rem 4rem;
+	padding: 4rem;
 	min-height: 50vh;
 
 	display: flex;
@@ -44,6 +98,9 @@
 			align-items: center;
 			gap: 0.5rem;
 			text-align: center;
+			background-color: #191b1f;
+			border-radius: 8px;
+			padding: 1.25rem;
 
 			.num {
 				font-size: 2rem;
@@ -58,14 +115,14 @@
 			}
 
 			.desc {
-				color: #c4c4c4;
+				color: rgba(255, 255, 255, 0.6);
 				font-size: 14px;
 			}
 
 			h4 {
 				font-weight: 400;
-				font-size: 1.5rem;
-				margin-bottom: 1rem;
+				font-size: 1.25rem;
+				margin-bottom: 0.75rem;
 			}
 		}
 	}
@@ -116,10 +173,13 @@
 @media screen and (max-width: 1024px) {
 	.Hero {
 		padding: 1.25rem;
+		// display: block;
+		flex-direction: column-reverse;
 
 		.main-text {
-			margin-top: auto;
-			margin-bottom: 50%;
+			// height: 100vh;
+			// margin-top: 80%;
+			margin-bottom: 30%;
 		}
 	}
 
@@ -129,6 +189,12 @@
 		.stepList {
 			flex-direction: column;
 			gap: 2rem;
+
+			.stepItem {
+				h4 {
+					font-size: 18px;
+				}
+			}
 		}
 	}
 
