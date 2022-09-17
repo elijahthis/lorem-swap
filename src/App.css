@@ -1,14 +1,18 @@
 .App {
-  /* background: url(/public/bg.jpg); */
-  /* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%); */
-  /* background-blend-mode: overlay, normal; */
-  min-height: 100vh;
-  overflow: hidden;
-  /* background: hsl(174, 23%, 17%); */
-  /* background: hsl(234, 22%, 26%); */
-  background: linear-gradient(90deg, hsl(174, 23%, 17%) 0%, hsl(234, 16%, 26%) 85%, hsl(234, 22%, 26%) 100%);
-  color: #ffffff;
-
+	/* background: url(/public/bg.jpg); */
+	/* background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%); */
+	/* background-blend-mode: overlay, normal; */
+	min-height: 100vh;
+	overflow: hidden;
+	/* background: hsl(174, 23%, 17%); */
+	/* background: hsl(234, 22%, 26%); */
+	background: linear-gradient(
+		90deg,
+		hsl(174, 23%, 17%) 0%,
+		hsl(234, 16%, 26%) 85%,
+		hsl(234, 22%, 26%) 100%
+	);
+	color: #ffffff;
 }
 
 /* .App::before {
@@ -21,33 +25,51 @@
 } */
 
 h1 {
-  font-size: 56px;
-  overflow-wrap: normal;
-  font-weight: 600;
+	font-size: 56px;
+	overflow-wrap: normal;
+	font-weight: 600;
 }
 
 h2 {
-  font-size: 48px;
-  line-height: 56px;
-  overflow-wrap: normal;
-  font-weight: 600;
+	font-size: 48px;
+	line-height: 56px;
+	overflow-wrap: normal;
+	font-weight: 600;
 }
 
 h3 {
-  font-size: 36px;
-  line-height: 48px;
-  margin-bottom: 1rem;
+	font-size: 36px;
+	line-height: 48px;
+	margin-bottom: 1rem;
 }
 
 h5 {
-  font-size: 1rem;
-  line-height: 1rem;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
+	font-size: 1rem;
+	line-height: 1rem;
+	margin-bottom: 0.5rem;
+	font-weight: 500;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+@media screen and (max-width: 1024px) {
+	h1 {
+		font-size: 42px;
+		line-height: 50px;
+	}
+	h2 {
+		font-size: 36px;
+		line-height: 48px;
+		margin-bottom: 1rem;
+	}
+
+	h3 {
+		font-size: 24px;
+		line-height: 30px;
+		margin-bottom: 1rem;
+	}
 }

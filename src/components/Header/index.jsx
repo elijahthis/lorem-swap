@@ -2,24 +2,43 @@ import { FaWolfPackBattalion } from "react-icons/fa";
 import Button from "../Button";
 import "./styles.scss";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const Header = () => {
-    const navigate = useNavigate();
+	const navigate = useNavigate();
+	const [navbar, setNavbar] = useState(false);
 
-    console.log(window.location.pathname);
+	const changeBackground = () => {
+		console.log(window.scrollY);
+		if (window.scrollY >= 66) {
+			setNavbar(true);
+		} else {
+			setNavbar(false);
+		}
+	};
 
-    return (
-        <header className="Header">
-            <Link to="/">
-                <FaWolfPackBattalion size={40} />
-            </Link>
-            {window.location.pathname === "/swapp" ? (
-                <Button>Connect Wallet</Button>
-            ) : (
-                <Button onClick={() => navigate("/swapp")}>Get Started</Button>
-            )}
-        </header>
-    );
+	useEffect(() => {
+		changeBackground();
+
+		// adding the event when scroll change Logo
+		window.addEventListener("scroll", changeBackground);
+		console.log(window.scrollY);
+	}, [window.scrollY]);
+	console.log(window.scrollY);
+
+	return (
+		<header className={`Header ${navbar ? "Header--active" : ""}`}>
+			<Link to="/">
+				<FaWolfPackBattalion size={40} />
+			</Link>
+			{window.location.pathname === "/swapp" ? (
+				<Button>Connect Wallet</Button>
+			) : (
+				<Button onClick={() => navigate("/swapp")}>Get Started</Button>
+			)}
+		</header>
+	);
 };
 
 export default Header;

@@ -1,16 +1,27 @@
 .Header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 4rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 1.5rem 4rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	transition: background-color 0.5s;
 
-    a {
-        color: #ffffff;
-        text-decoration: none;
-    }
+	a {
+		color: #ffffff;
+		text-decoration: none;
+	}
+
+	&--active {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+}
+
+@media screen and (max-width: 1024px) {
+	.Header {
+		padding: 1rem 1.25rem;
+	}
 }
