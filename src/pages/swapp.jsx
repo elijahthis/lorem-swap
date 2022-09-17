@@ -43,7 +43,7 @@ const Swapp = () => (
 				<section className="card-section card-section--badge">
 					<p>Please send the exact amount of ETH to this address</p>
 					<div className="wallet">
-						0xdaf5b8D1c9c1dA131104A09534423982164F869B
+						<span>0xdaf5b8D1c9c1dA131104A09534423982164F869B</span>
 						<FiCopy />
 					</div>
 				</section>
