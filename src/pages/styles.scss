@@ -36,16 +36,20 @@
 		.wallet {
 			display: flex;
 			flex-direction: row;
-			align-items: center;
+			// align-items: center;
 			gap: 0.75rem;
 			margin: 0.5rem 0;
 			color: #ffffff;
 			font-weight: 500;
-			word-wrap: break-word;
-			width: 100%;
 			// overflow: hidden;
 			svg {
 				cursor: pointer;
+				margin-top: 2px;
+			}
+
+			span {
+				word-wrap: break-word;
+				width: 90%;
 			}
 		}
 
