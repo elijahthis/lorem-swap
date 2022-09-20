@@ -72,4 +72,10 @@ h5 {
 		line-height: 30px;
 		margin-bottom: 1rem;
 	}
+  h5 {
+    font-size: 1rem;
+    line-height: 1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
 }

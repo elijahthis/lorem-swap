@@ -20,6 +20,9 @@
 		box-shadow: rgba(0, 0, 0, 0.01) 0px 0px 1px, rgba(0, 0, 0, 0.04) 0px 4px 8px,
 			rgba(0, 0, 0, 0.04) 0px 16px 24px, rgba(0, 0, 0, 0.01) 0px 24px 32px;
 
+		h5 {
+			margin-bottom: 1rem;
+		}
 		.card-section {
 			padding: 1rem 0;
 			// border-bottom: 1px solid #c4c4c4;
@@ -62,11 +65,20 @@
 			border-radius: 20px;
 			border: 1px solid rgb(25, 27, 31);
 			background-color: rgb(33, 36, 41);
+			transition: border 0.3s;
 
 			.transparent-num {
 				font-weight: 500;
 				font-size: 28px;
 				background: transparent;
+			}
+
+			&:hover {
+				border: 1px solid rgb(64, 68, 79);
+			}
+
+			input {
+				width: 100%;
 			}
 		}
 

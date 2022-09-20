@@ -6,9 +6,43 @@ import LoadingCircle from "../components/LoadingCircle";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import "./styles.scss";
+import AntSelect from "../components/AntSelect";
 
 const Swapp = () => {
 	const [copied, setCopied] = useState(false);
+
+	let categories = [
+		{
+			name: "programming",
+			value: "programming",
+			icon: "fas fa-file-code",
+		},
+		{
+			name: "call",
+			value: "call",
+			icon: "fas fa-phone-volume",
+		},
+		{
+			name: "video call",
+			value: "video call",
+			icon: "fas fa-video",
+		},
+		{
+			name: "metting",
+			value: "metting",
+			icon: "fa fa-users",
+		},
+		{
+			name: "database design",
+			value: "database design",
+			icon: "fa fa-database",
+		},
+		{
+			name: "testing",
+			value: "testing",
+			icon: "fa fa-bug",
+		},
+	];
 
 	return (
 		<div className="Swapp">
@@ -66,6 +100,17 @@ const Swapp = () => {
 							)}
 						</div>
 					</section>
+					{/* <CustomSelect
+						options={categories}
+						labelIcon={true}
+						defaultIcon="icon"
+						placeholder="select"
+						// default={defaultValue} // you can pass default object as selected.
+						label="name" // default label is name, TODO: you can change as per your object fields.
+						inputPlaceholder="search here"
+						// onChange={() => this.handleOnChange} // handleOnChange get object.
+						style={{}} // you can apply custom style
+					/> */}
 
 					<section className="card-section">
 						<h4>Where should we send your funds?</h4>
