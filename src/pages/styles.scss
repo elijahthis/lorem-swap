@@ -58,7 +58,7 @@
 
 		.input-block {
 			display: grid;
-			grid-template-columns: 1fr 72px;
+			grid-template-columns: 1fr 120px;
 			gap: 1.2rem;
 			margin-bottom: 0.5rem;
 			padding: 1rem;
@@ -79,6 +79,17 @@
 
 			input {
 				width: 100%;
+			}
+
+			.cryptoOption {
+				display: grid;
+				grid-template-columns: 45px 1fr;
+				align-items: center;
+				gap: 0.25rem;
+
+				img {
+					height: 18px;
+				}
 			}
 		}
 

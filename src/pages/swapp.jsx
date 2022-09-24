@@ -1,48 +1,211 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import { FiCopy } from "react-icons/fi";
-import { MdDoneAll } from "react-icons/md";
+import { MdDoneAll, MdError } from "react-icons/md";
 import LoadingCircle from "../components/LoadingCircle";
 import Button from "../components/Button";
 import TextField from "../components/TextField";
 import "./styles.scss";
-import AntSelect from "../components/AntSelect";
+import Select from "react-select";
+import { useQuery, gql } from "@apollo/client";
+import { GET_EXCHANGE_RATE } from "../graphql/queries";
 
 const Swapp = () => {
 	const [copied, setCopied] = useState(false);
+	const [asset, setAsset] = useState("BTC");
+	const [rate, setRate] = useState(0);
 
-	let categories = [
+	const [assetAmount, setAssetAmount] = useState("0");
+	const [nairaAmount, setNairaAmount] = useState("0");
+
+	const { loading, error, data } = useQuery(GET_EXCHANGE_RATE, {
+		variables: { currencyName: asset },
+	});
+
+	const cryptoOptions = [
 		{
-			name: "programming",
-			value: "programming",
-			icon: "fas fa-file-code",
+			value: "ADA",
+			label: (
+				<div className="cryptoOption">
+					ADA{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/ada.png`}
+					/>
+				</div>
+			),
 		},
 		{
-			name: "call",
-			value: "call",
-			icon: "fas fa-phone-volume",
+			value: "AVAX",
+			label: (
+				<div className="cryptoOption">
+					AVAX{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/avax.png`}
+					/>
+				</div>
+			),
 		},
 		{
-			name: "video call",
-			value: "video call",
-			icon: "fas fa-video",
+			value: "BNB",
+			label: (
+				<div className="cryptoOption">
+					BNB{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/bnb.png`}
+					/>
+				</div>
+			),
 		},
 		{
-			name: "metting",
-			value: "metting",
-			icon: "fa fa-users",
+			value: "BTC",
+			label: (
+				<div className="cryptoOption">
+					BTC{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/btc.png`}
+					/>
+				</div>
+			),
 		},
 		{
-			name: "database design",
-			value: "database design",
-			icon: "fa fa-database",
+			value: "ETH",
+			label: (
+				<div className="cryptoOption">
+					ETH{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/eth.png`}
+					/>
+				</div>
+			),
 		},
 		{
-			name: "testing",
-			value: "testing",
-			icon: "fa fa-bug",
+			value: "FIL",
+			label: (
+				<div className="cryptoOption">
+					FIL{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/fil.png`}
+					/>
+				</div>
+			),
+		},
+		{
+			value: "SOL",
+			label: (
+				<div className="cryptoOption">
+					SOL{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/sol.png`}
+					/>
+				</div>
+			),
+		},
+		{
+			value: "USDT",
+			label: (
+				<div className="cryptoOption">
+					USDT{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdt.png`}
+					/>
+				</div>
+			),
+		},
+		{
+			value: "USDC",
+			label: (
+				<div className="cryptoOption">
+					USDC{" "}
+					<img
+						src={`https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/usdc.png`}
+					/>
+				</div>
+			),
 		},
 	];
+	const currencyOptions = [
+		{
+			value: "NGN",
+			label: (
+				<div className="cryptoOption">
+					NGN <span style={{ color: "#008751" }}>₦</span>
+				</div>
+			),
+		},
+	];
+
+	const colourStyles = {
+		control: (styles) => ({
+			...styles,
+			backgroundColor: "#2c2f36",
+			color: "#ffffff",
+		}),
+		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+			return {
+				...styles,
+				backgroundColor: isDisabled
+					? undefined
+					: isSelected
+					? "black"
+					: isFocused
+					? "rgb(44, 47, 54)"
+					: undefined,
+				color: isDisabled
+					? "#ffffff"
+					: isSelected
+					? "#ffffff"
+					: "rgba(255,255,255,0.6)",
+				fontWeight: isSelected ? 700 : 600,
+				// cursor: isDisabled ? "not-allowed" : "default",
+
+				":active": {
+					...styles[":active"],
+					backgroundColor: !isDisabled
+						? isSelected
+							? "red"
+							: "green"
+						: undefined,
+				},
+			};
+		},
+		// input: (styles) => ({ ...styles, ...dot() }),
+		// placeholder: (styles) => ({ ...styles, ...dot("#ccc") }),
+		singleValue: (styles, { data }) => ({
+			...styles,
+			color: "#ffffff",
+			fontWeight: 700,
+		}),
+		menuList: (styles, { data }) => ({ ...styles, backgroundColor: "#191b1f" }),
+		indicatorsContainer: (styles, { data }) => ({
+			...styles,
+			">div": {
+				padding: "8px 4px",
+			},
+		}),
+	};
+
+	useEffect(() => {
+		if (!loading && !error) {
+			console.log(data);
+			setRate(data?.getAggregatedRate);
+		}
+		if (error) console.log(error);
+	}, [loading]);
+
+	useEffect(() => {
+		console.log("assetAmount", assetAmount);
+		console.log("nairaAmount", nairaAmount);
+	}, [assetAmount, nairaAmount]);
+
+	useEffect(() => {
+		if (!isNaN(Number(assetAmount)))
+			setNairaAmount((assetAmount * rate).toString());
+	}, [assetAmount]);
+
+	useEffect(() => {
+		if (!isNaN(Number(nairaAmount)))
+			setAssetAmount((nairaAmount / rate).toString());
+	}, [nairaAmount]);
 
 	return (
 		<div className="Swapp">
@@ -61,21 +224,53 @@ const Swapp = () => {
 								type="number"
 								variant="number"
 								className="transparent-num"
+								value={assetAmount}
+								onChange={(e) => {
+									setAssetAmount(e.target.value);
+								}}
 							/>
-							<p>ETH</p>
+							{/* <p>ETH</p> */}
+							<Select
+								options={cryptoOptions}
+								styles={colourStyles}
+								onChange={(e) => {
+									console.log(e.value);
+									setAsset(e.value);
+								}}
+								defaultValue={cryptoOptions[3]}
+							/>
 						</div>
 						<div className="input-block">
 							<TextField
 								type="number"
 								variant="number"
 								className="transparent-num"
+								value={nairaAmount}
+								onChange={(e) => {
+									setNairaAmount(e.target.value);
+								}}
 							/>
-							<p>NGN</p>
+							<Select
+								options={currencyOptions}
+								styles={colourStyles}
+								defaultValue={currencyOptions[0]}
+							/>
 						</div>
 						<div className="best-price">
-							{/* <BsFillCheckCircleFill /> */}
-							<LoadingCircle />
-							<p>1 ETH = 668, 389.64 NGN</p>
+							{error ? (
+								<MdError />
+							) : loading ? (
+								<LoadingCircle />
+							) : (
+								<BsFillCheckCircleFill />
+							)}
+							<p>
+								{error
+									? "Service unavailable at the moment"
+									: loading
+									? "Fetching live rates..."
+									: `1 ${asset} = ${rate?.toLocaleString()} NGN`}
+							</p>
 						</div>
 					</section>
 

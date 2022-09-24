@@ -10,7 +10,6 @@ const Header = () => {
 	const [navbar, setNavbar] = useState(false);
 
 	const changeBackground = () => {
-		console.log(window.scrollY);
 		if (window.scrollY >= 40) {
 			setNavbar(true);
 		} else {
@@ -23,9 +22,7 @@ const Header = () => {
 
 		// adding the event when scroll change Logo
 		window.addEventListener("scroll", changeBackground);
-		console.log(window.scrollY);
 	}, [window.scrollY]);
-	console.log(window.scrollY);
 
 	return (
 		<header className={`Header ${navbar ? "Header--active" : ""}`}>
