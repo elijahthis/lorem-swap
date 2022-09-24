@@ -193,11 +193,6 @@ const Swapp = () => {
 	}, [loading]);
 
 	useEffect(() => {
-		console.log("assetAmount", assetAmount);
-		console.log("nairaAmount", nairaAmount);
-	}, [assetAmount, nairaAmount]);
-
-	useEffect(() => {
 		if (!isNaN(Number(assetAmount)))
 			setNairaAmount((assetAmount * rate).toString());
 	}, [assetAmount]);
