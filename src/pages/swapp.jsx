@@ -195,12 +195,7 @@ const Swapp = () => {
 	useEffect(() => {
 		if (!isNaN(Number(assetAmount)))
 			setNairaAmount((assetAmount * rate).toString());
-	}, [assetAmount]);
-
-	useEffect(() => {
-		if (!isNaN(Number(nairaAmount)))
-			setAssetAmount((nairaAmount / rate).toString());
-	}, [nairaAmount]);
+	}, [rate]);
 
 	return (
 		<div className="Swapp">
@@ -222,6 +217,9 @@ const Swapp = () => {
 								value={assetAmount}
 								onChange={(e) => {
 									setAssetAmount(e.target.value);
+
+									if (!isNaN(Number(e.target.value)))
+										setNairaAmount((e.target.value * rate).toString());
 								}}
 							/>
 							{/* <p>ETH</p> */}
@@ -243,6 +241,9 @@ const Swapp = () => {
 								value={nairaAmount}
 								onChange={(e) => {
 									setNairaAmount(e.target.value);
+
+									if (!isNaN(Number(e.target.value)))
+										setAssetAmount((e.target.value / rate).toString());
 								}}
 							/>
 							<Select
@@ -270,7 +271,7 @@ const Swapp = () => {
 					</section>
 
 					<section className="card-section card-section--badge">
-						<p>Please send the exact amount of ETH to this address</p>
+						<p>Please send the exact amount of {asset} to this address</p>
 						<div className="wallet">
 							<span>0xdaf5b8D1c9c1dA131104A09534423982164F869B</span>
 							{copied ? (
