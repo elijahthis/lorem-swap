@@ -190,9 +190,10 @@ const Swapp = () => {
 			setRate(data?.getAggregatedRate);
 		}
 		if (error) console.log(error);
-	}, [loading]);
+	}, [loading, asset]);
 
 	useEffect(() => {
+		console.log(rate);
 		if (!isNaN(Number(assetAmount)))
 			setNairaAmount((assetAmount * rate).toString());
 	}, [rate]);
