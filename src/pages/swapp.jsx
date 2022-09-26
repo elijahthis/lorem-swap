@@ -9,6 +9,8 @@ import "./styles.scss";
 import Select from "react-select";
 import { useQuery, gql } from "@apollo/client";
 import { GET_EXCHANGE_RATE } from "../graphql/queries";
+import { getNigerianBanks, getAccountName } from "../axios/bankStuff";
+import useDebounce from "../hooks/useDebounce";
 
 const Swapp = () => {
 	const [copied, setCopied] = useState(false);
@@ -17,6 +19,13 @@ const Swapp = () => {
 
 	const [assetAmount, setAssetAmount] = useState("0");
 	const [nairaAmount, setNairaAmount] = useState("0");
+	const [bankDetails, setBankDetails] = useState({
+		bankName: "",
+		accountNumber: "",
+		accountName: "",
+	});
+
+	const [bankList, setBankList] = useState([]);
 
 	const { loading, error, data } = useQuery(GET_EXCHANGE_RATE, {
 		variables: { currencyName: asset },
@@ -198,6 +207,63 @@ const Swapp = () => {
 			setNairaAmount((assetAmount * rate).toString());
 	}, [rate]);
 
+	const debouncedAccountNumber = useDebounce(bankDetails.accountNumber, 1000);
+
+	const fetchigerianBanks = async () => {
+		try {
+			const res = await getNigerianBanks();
+			console.log(
+				res?.data?.map((bankObj) => ({
+					value: bankObj?.code,
+					label: bankObj?.name,
+				}))
+			);
+			setBankList(
+				res?.data?.map((bankObj) => ({
+					value: bankObj?.code,
+					label: bankObj?.name,
+				}))
+			);
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
+	const fetchAccountName = async () => {
+		try {
+			const res = await getAccountName(
+				debouncedAccountNumber,
+				bankDetails.bankName
+			);
+			console.log(res);
+			setBankDetails({
+				...bankDetails,
+				accountName: res?.data?.data?.account_name,
+			});
+		} catch (e) {
+			console.log(e);
+			setBankDetails({
+				...bankDetails,
+				accountName: "",
+			});
+		}
+	};
+
+	useEffect(() => {
+		fetchigerianBanks();
+	}, []);
+
+	useEffect(() => {
+		if (debouncedAccountNumber.length > 5 && bankDetails.bankName)
+			fetchAccountName();
+		else {
+			setBankDetails({
+				...bankDetails,
+				accountName: "",
+			});
+		}
+	}, [debouncedAccountNumber]);
+
 	return (
 		<div className="Swapp">
 			<h3>Withdraw directly to your bank account</h3>
@@ -307,16 +373,39 @@ const Swapp = () => {
 					<section className="card-section">
 						<h4>Where should we send your funds?</h4>
 						<div className="regular-input">
+							<label htmlFor="">Bank Name</label>
+							<Select
+								options={bankList}
+								styles={colourStyles}
+								onChange={(e) =>
+									setBankDetails({
+										...bankDetails,
+										bankName: e.value,
+									})
+								}
+							/>
+						</div>
+						<div className="regular-input">
 							<label htmlFor="">Account Number</label>
-							<TextField type="number" variant="number" />
+							<TextField
+								type="number"
+								variant="number"
+								onChange={(e) =>
+									setBankDetails({
+										...bankDetails,
+										accountNumber: e.target.value,
+									})
+								}
+							/>
 						</div>
 						<div className="regular-input">
 							<label htmlFor="">Account Name</label>
-							<TextField type="text" variant="text" />
-						</div>
-						<div className="regular-input">
-							<label htmlFor="">Bank Name</label>
-							<TextField type="text" variant="text" />
+							<TextField
+								type="text"
+								variant="text"
+								disabled={true}
+								value={bankDetails.accountName}
+							/>
 						</div>
 					</section>
 					<Button variant="secondary">Withdraw</Button>
